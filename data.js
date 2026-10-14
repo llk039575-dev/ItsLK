@@ -26,7 +26,7 @@ window.MY_EVENTS = [
       "DJ LK",
       "DJ FARBA"
     ],
-    "image": "soluna-cupidon-party.JPG"
+    "image": "soluna-cupidon-party.jpg"
   }
 ];
 
@@ -48,7 +48,7 @@ window.SOLUNA = {
         "DJ LK",
         "DJ FARBA"
       ],
-      "image": "soluna-cupidon-party.JPG"
+      "image": "soluna-cupidon-party.jpg"
     }
   ]
 };

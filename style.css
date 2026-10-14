@@ -22,6 +22,8 @@ ul{list-style:none;margin:0;padding:0}
 .logo{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:15px;letter-spacing:.01em}
 .links{display:flex;gap:26px;color:var(--muted)}
 .links a:hover,.links a:focus-visible{color:var(--fg)}
+.links .ig{display:inline-flex;align-items:center;gap:6px}
+.links .ig svg{width:16px;height:16px;flex:none}
 .nav-right{display:flex;align-items:center;gap:12px}
 .lang{background:var(--chip);border:0;color:var(--fg);font:inherit;padding:8px 4px;border-radius:6px;cursor:pointer;min-width:72px}
 .btn{display:inline-flex;align-items:center;gap:12px;height:53px;padding:0 20px;border-radius:6px;border:1px solid var(--line-2);font:inherit;color:var(--fg);background:transparent;cursor:pointer;white-space:nowrap;transition:background .15s,border-color .15s}
@@ -63,6 +65,10 @@ ul{list-style:none;margin:0;padding:0}
 .sec h2{margin:20px 0 40px;font-family:var(--display);font-stretch:125%;font-weight:900;font-size:clamp(28px,8vw,54px);line-height:1;letter-spacing:-.01em;text-transform:uppercase}
 .sub{margin:56px 0 0;font-size:18px;font-weight:500;color:var(--muted)}
 .lead{max-width:62ch;margin:0;color:#d4d4d4}
+
+/* ICÔNE À CÔTÉ DU TITRE "DJ RÉSIDENT" */
+#t-sol{display:flex;align-items:center;gap:14px}
+.title-icon{height:1em;width:auto;max-height:48px;object-fit:contain;display:block}
 
 /* EVENTS */
 .ev{position:relative;display:grid;grid-template-columns:96px 1fr auto;gap:24px;align-items:center;padding:24px 0;border-bottom:1px solid var(--line)}

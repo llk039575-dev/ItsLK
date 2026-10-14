@@ -1,4 +1,4 @@
-:root{
+{
   color-scheme: dark;
   --bg:#0a0a0a; --fg:#ffffff; --muted:#8c8c8c; --line:#1e1e1e; --line-2:#2c2c2c; --chip:#161616;
   --sans:"Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -67,8 +67,8 @@ ul{list-style:none;margin:0;padding:0}
 .lead{max-width:62ch;margin:0;color:#d4d4d4}
 
 /* ICÔNE À CÔTÉ DU TITRE "DJ RÉSIDENT" */
-#t-sol{display:flex;align-items:center;gap:14px}
-.title-icon{height:1em;width:auto;max-height:48px;object-fit:contain;display:block}
+#t-sol{display:flex;align-items:center;justify-content:flex-start;gap:14px}
+.title-icon{width:clamp(110px,30vw,250px);height:auto;min-width:0;object-fit:contain;display:block;margin:0 auto}
 
 /* EVENTS */
 .ev{position:relative;display:grid;grid-template-columns:96px 1fr auto;gap:24px;align-items:center;padding:24px 0;border-bottom:1px solid var(--line)}

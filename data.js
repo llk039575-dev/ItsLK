@@ -34,7 +34,7 @@ window.SOLUNA = {
   "about": "Its LK est DJ résident de Soluna Event. Retrouvez les prochaines soirées ci-dessous.",
   "soirees": [
     {
-      "date": "2026-10-28T22:00",
+      "date": "2026-10-24T22:00",
       "title": "Cupidon Party",
       "venue": "Underground Club",
       "address": "Rue de l'Hôpital 4",

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>DJ LK — Admin</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0607;--surface:rgba(255,255,255,.055);--border:rgba(255,255,255,.12);--text:#fff3f1;--soft:#cbbdbd;--pink:#ff3b4a;--green:#2dd881;--red:#ff5e5e;--grad:linear-gradient(100deg, #a50f1d 0%, #e11d2e 55%, #ff6b21 100%)}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(60vw 60vw at 10% 0%,rgba(200,16,46,.16),transparent 60%),radial-gradient(60vw 60vw at 95% 20%,rgba(255,122,26,.10),transparent 60%),var(--bg);color:var(--text);font-family:Inter,sans-serif;min-height:100vh}
+.wrap{width:min(100% - 28px,900px);margin:0 auto;padding:28px 0 60px}
+.brand{font:800 1.4rem Sora;margin-bottom:22px}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--grad);margin-right:8px}
+h1{font:800 clamp(1.7rem,6vw,2.4rem) Sora;margin:0 0 6px}
+.sub{color:var(--soft);margin:0 0 20px}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:20px;margin:16px 0;backdrop-filter:blur(12px)}
+label{display:block;color:var(--soft);font-size:.82rem;margin:0 0 7px}
+input,textarea,select{width:100%;border:1px solid var(--border);background:rgba(0,0,0,.3);color:var(--text);border-radius:12px;padding:13px;font:inherit;outline:none}
+input:focus,textarea:focus,select:focus{border-color:var(--pink)}
+textarea{min-height:100px;resize:vertical}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.full{grid-column:1/-1}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.btn{border:0;border-radius:999px;padding:12px 18px;font-weight:700;cursor:pointer;color:#fff;background:var(--grad)}
+.btn.secondary{background:rgba(255,255,255,.07);border:1px solid var(--border);color:var(--text)}
+.btn.danger{background:rgba(255,59,74,.12);border:1px solid rgba(255,59,74,.4);color:#ff8a93}
+.hidden{display:none!important}
+.notice{padding:12px 14px;border-radius:12px;margin:12px 0;background:rgba(255,255,255,.06);color:var(--soft)}
+.notice.error{color:#ff8a93;background:rgba(255,59,74,.1)}
+.event{display:flex;justify-content:space-between;gap:15px;align-items:center;border:1px solid var(--border);background:rgba(255,255,255,.035);border-radius:15px;padding:15px;margin:10px 0}
+.event h3{margin:0 0 4px;font:700 1rem Sora}
+.event p{margin:0;color:var(--soft);font-size:.88rem}
+.event-actions{display:flex;gap:8px;flex-shrink:0}
+.small{padding:9px 13px;font-size:.82rem}
+
+/* Tabs */
+.tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.tab{padding:10px 16px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--soft);font-weight:600;font-size:.9rem;cursor:pointer}
+.tab.active{background:var(--grad);color:#fff;border-color:transparent}
+.tabpage{display:none}
+.tabpage.active{display:block}
+
+/* Switch */
+.switch-row{display:flex;justify-content:space-between;align-items:center;gap:14px}
+.switch{position:relative;flex-shrink:0;width:56px;height:32px}
+.switch input{position:absolute;inset:0;opacity:0;cursor:pointer;z-index:1}
+.slider{position:absolute;inset:0;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);transition:background .2s}
+.slider::before{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff3f1;transition:transform .2s}
+.switch input:checked + .slider{background:linear-gradient(100deg,#e11d2e,#ff6b21);border-color:transparent}
+.switch input:checked + .slider::before{transform:translateX(24px)}
+.status-badge{display:inline-flex;align-items:center;gap:7px;font-size:.85rem;color:var(--soft)}
+.status-dot{width:9px;height:9px;border-radius:50%;background:var(--green)}
+.status-dot.off{background:var(--soft)}
+
+/* Réseau */
+.stat{display:flex;justify-content:space-between;font-size:.88rem;color:var(--soft);margin:4px 0 2px}
+.bar{height:9px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;margin-bottom:14px}
+.bar-fill{height:100%;background:var(--grad)}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:6px}
+.stat-card{border:1px solid var(--border);border-radius:14px;padding:14px;background:rgba(255,255,255,.03)}
+.stat-card .k{color:var(--soft);font-size:.78rem;margin-bottom:4px}
+.stat-card .v{font:700 1.1rem Sora}
+
+@media(max-width:650px){.grid,.stat-grid{grid-template-columns:1fr}.event{align-items:flex-start;flex-direction:column}.event-actions{width:100%}.event-actions .btn{flex:1}.wrap{padding-top:18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand"><span class="dot"></span>DJ LK · ADMIN</div>
+
+  <div id="login">
+    <h1>Connexion</h1>
+    <p class="sub">Accède à la gestion du site.</p>
+    <div class="panel">
+      <label for="password">Mot de passe administrateur</label>
+      <input id="password" type="password" autocomplete="current-password" placeholder="Mot de passe">
+      <div class="actions"><button class="btn" id="loginBtn">Se connecter</button><a class="btn secondary" href="/">Retour au site</a></div>
+      <div id="loginMsg"></div>
+    </div>
+  </div>
+
+  <div id="app" class="hidden">
+    <h1>Gestion du site</h1>
+    <p class="sub">Dates, maintenance et état du serveur.</p>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="dates">Dates</button>
+      <button class="tab" data-tab="maintenance">Maintenance</button>
+      <button class="tab" data-tab="reseau">Réseau</button>
+      <button class="btn secondary small" id="logoutBtn" style="margin-left:auto">Se déconnecter</button>
+    </div>
+
+    <!-- ===== ONGLET DATES ===== -->
+    <div class="tabpage active" id="tab-dates">
+      <div class="panel">
+        <h2 id="formTitle" style="font-family:Sora;margin-top:0">Ajouter une date</h2>
+        <form id="eventForm">
+          <div class="grid">
+            <div class="full"><label>Titre de l'événement *</label><input name="title" required placeholder="Soirée DJ LK"></div>
+            <div><label>Date *</label><input name="date" type="date" required></div>
+            <div><label>Heure</label><input name="time" type="time"></div>
+            <div><label>Lieu</label><input name="venue" placeholder="Eden Club"></div>
+            <div><label>Ville / localisation</label><input name="location" placeholder="La Chaux-de-Fonds, Suisse"></div>
+            <div><label>Statut</label><select name="status"><option>Confirmé</option><option>Bientôt</option><option>À annoncer</option></select></div>
+            <div><label>Lien (optionnel)</label><input name="link" type="url" placeholder="https://..."></div>
+            <div class="full"><label>Image (URL optionnelle)</label><input name="image" type="url" placeholder="https://.../image.jpg"></div>
+            <div class="full"><label>Description</label><textarea name="description" placeholder="Quelques détails sur la soirée..."></textarea></div>
+          </div>
+          <div class="actions">
+            <button class="btn" type="submit" id="saveBtn">Ajouter la date</button>
+            <button class="btn secondary hidden" type="button" id="cancelBtn">Annuler la modification</button>
+          </div>
+          <div id="formMsg"></div>
+        </form>
+      </div>
+      <div class="panel">
+        <h2 style="font-family:Sora;margin-top:0">Dates enregistrées</h2>
+        <div id="eventsList"></div>
+      </div>
+    </div>
+
+    <!-- ===== ONGLET MAINTENANCE ===== -->
+    <div class="tabpage" id="tab-maintenance">
+      <div class="panel">
+        <h2 style="font-family:Sora;margin-top:0">Mode maintenance</h2>
+        <p class="sub" style="margin-bottom:16px">Quand c'est activé, tous les visiteurs voient la page « maintenance.html » à la place du site — sauf toi ici dans l'admin.</p>
+        <div class="switch-row">
+          <span class="status-badge"><span class="status-dot off" id="maintDot"></span><span id="maintLabel">Site en ligne normalement</span></span>
+          <label class="switch"><input type="checkbox" id="maintToggle"><span class="slider"></span></label>
+        </div>
+        <div id="maintMsg"></div>
+      </div>
+    </div>
+
+    <!-- ===== ONGLET RÉSEAU ===== -->
+    <div class="tabpage" id="tab-reseau">
+      <div class="panel">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <h2 style="font-family:Sora;margin:0">État du serveur</h2>
+          <button class="btn secondary small" id="refreshStatus">Actualiser</button>
+        </div>
+        <div id="statusMsg"></div>
+        <div class="stat-grid" style="margin-top:14px">
+          <div class="stat-card"><div class="k">Nom de la machine</div><div class="v" id="s-host">—</div></div>
+          <div class="stat-card"><div class="k">En ligne depuis</div><div class="v" id="s-uptime">—</div></div>
+        </div>
+        <div style="margin-top:10px">
+          <div class="stat"><span>Mémoire utilisée</span><span id="s-mem-text">—</span></div>
+          <div class="bar"><div class="bar-fill" id="s-mem-bar" style="width:0%"></div></div>
+        </div>
+        <div id="s-disks"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<script>
+const API_BASE = "";
+let password = localStorage.getItem("djlk_admin_password") || "";
+let editingId = null;
+const $ = s => document.querySelector(s);
+const form = $("#eventForm");
+
+function showApp() { $("#login").classList.add("hidden"); $("#app").classList.remove("hidden"); loadEvents(); loadMaintenance(); }
+function showLogin() { $("#login").classList.remove("hidden"); $("#app").classList.add("hidden"); }
+function msg(el, text, error = false) {
+  el.innerHTML = "";
+  if (!text) return;
+  const d = document.createElement("div");
+  d.className = "notice" + (error ? " error" : "");
+  d.textContent = text;
+  el.appendChild(d);
+}
+
+async function request(url, options = {}) {
+  options.headers = { ...(options.headers || {}), "x-admin-password": password };
+  const res = await fetch(API_BASE + url, options);
+  if (res.status === 401) {
+    localStorage.removeItem("djlk_admin_password");
+    password = "";
+    showLogin();
+    throw new Error("Mot de passe incorrect.");
+  }
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || "Erreur.");
+  return data;
+}
+
+async function checkPassword() {
+  try {
+    await request("/api/admin/check");
+    localStorage.setItem("djlk_admin_password", password);
+    showApp();
+  } catch (e) {
+    msg($("#loginMsg"), "Mot de passe incorrect.", true);
+  }
+}
+$("#loginBtn").onclick = () => { password = $("#password").value; checkPassword(); };
+$("#password").addEventListener("keydown", e => { if (e.key === "Enter") $("#loginBtn").click(); });
+$("#logoutBtn").onclick = () => { localStorage.removeItem("djlk_admin_password"); password = ""; showLogin(); };
+
+/* ---------- Tabs ---------- */
+document.querySelectorAll(".tab").forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll(".tab").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".tabpage").forEach(p => p.classList.remove("active"));
+    btn.classList.add("active");
+    $("#tab-" + btn.dataset.tab).classList.add("active");
+    if (btn.dataset.tab === "reseau") loadStatus();
+  };
+});
+
+/* ---------- Dates ---------- */
+async function loadEvents() {
+  try {
+    const events = await request("/api/admin/events");
+    const list = $("#eventsList"); list.innerHTML = "";
+    if (!events.length) { list.innerHTML = '<div class="notice">Aucune date enregistrée.</div>'; return; }
+    events.forEach(e => {
+      const row = document.createElement("div"); row.className = "event";
+      const info = document.createElement("div");
+      const h = document.createElement("h3"); h.textContent = e.title;
+      const p = document.createElement("p");
+      p.textContent = new Date(e.date + "T00:00:00").toLocaleDateString("fr-CH", { weekday: "long", day: "2-digit", month: "long", year: "numeric" })
+        + (e.time ? " · " + e.time : "") + " · " + (e.venue || "Lieu à préciser") + (e.location ? " · " + e.location : "");
+      info.append(h, p);
+      const actions = document.createElement("div"); actions.className = "event-actions";
+      const edit = document.createElement("button"); edit.className = "btn secondary small"; edit.textContent = "Modifier"; edit.onclick = () => editEvent(e);
+      const del = document.createElement("button"); del.className = "btn danger small"; del.textContent = "Supprimer"; del.onclick = () => deleteEvent(e);
+      actions.append(edit, del); row.append(info, actions); list.appendChild(row);
+    });
+  } catch (e) { msg($("#formMsg"), e.message, true); }
+}
+function editEvent(e) {
+  editingId = e.id; $("#formTitle").textContent = "Modifier la date"; $("#saveBtn").textContent = "Enregistrer"; $("#cancelBtn").classList.remove("hidden");
+  for (const [key, value] of Object.entries(e)) { if (form.elements[key]) form.elements[key].value = value || ""; }
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+function resetForm() { editingId = null; form.reset(); $("#formTitle").textContent = "Ajouter une date"; $("#saveBtn").textContent = "Ajouter la date"; $("#cancelBtn").classList.add("hidden"); msg($("#formMsg"), ""); }
+$("#cancelBtn").onclick = resetForm;
+form.onsubmit = async e => {
+  e.preventDefault(); msg($("#formMsg"), "");
+  const data = Object.fromEntries(new FormData(form).entries());
+  try {
+    await request(editingId ? "/api/admin/events/" + encodeURIComponent(editingId) : "/api/admin/events", { method: editingId ? "PUT" : "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+    msg($("#formMsg"), editingId ? "Date modifiée !" : "Date ajoutée !");
+    resetForm(); await loadEvents();
+  } catch (err) { msg($("#formMsg"), err.message, true); }
+};
+async function deleteEvent(e) {
+  if (!confirm('Supprimer "' + e.title + '" ?')) return;
+  try { await request("/api/admin/events/" + encodeURIComponent(e.id), { method: "DELETE" }); loadEvents(); } catch (err) { msg($("#formMsg"), err.message, true); }
+}
+
+/* ---------- Maintenance ---------- */
+async function loadMaintenance() {
+  try {
+    const res = await fetch("/api/maintenance");
+    const data = await res.json();
+    setMaintUI(data.active);
+  } catch (e) {}
+}
+function setMaintUI(active) {
+  $("#maintToggle").checked = !!active;
+  $("#maintDot").classList.toggle("off", !active);
+  $("#maintLabel").textContent = active ? "Site en maintenance (visiteurs bloqués)" : "Site en ligne normalement";
+}
+$("#maintToggle").onchange = async (e) => {
+  const active = e.target.checked;
+  try {
+    await request("/api/admin/maintenance", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ active }) });
+    setMaintUI(active);
+    msg($("#maintMsg"), active ? "Maintenance activée." : "Maintenance désactivée.");
+  } catch (err) {
+    e.target.checked = !active;
+    msg($("#maintMsg"), err.message, true);
+  }
+};
+
+/* ---------- Réseau ---------- */
+function fmtBytes(b) {
+  if (!b) return "0 Go";
+  const gb = b / (1024 ** 3);
+  return gb >= 1 ? gb.toFixed(1) + " Go" : (b / (1024 ** 2)).toFixed(0) + " Mo";
+}
+function fmtUptime(sec) {
+  const d = Math.floor(sec / 86400), h = Math.floor((sec % 86400) / 3600), m = Math.floor((sec % 3600) / 60);
+  return (d ? d + "j " : "") + h + "h " + m + "min";
+}
+async function loadStatus() {
+  msg($("#statusMsg"), "");
+  try {
+    const s = await request("/api/admin/status");
+    $("#s-host").textContent = s.hostname;
+    $("#s-uptime").textContent = fmtUptime(s.uptimeSeconds);
+    const memPct = Math.round((s.memUsedBytes / s.memTotalBytes) * 100);
+    $("#s-mem-text").textContent = fmtBytes(s.memUsedBytes) + " / " + fmtBytes(s.memTotalBytes) + " (" + memPct + "%)";
+    $("#s-mem-bar").style.width = memPct + "%";
+
+    const disksEl = $("#s-disks"); disksEl.innerHTML = "";
+    if (s.diskError) { disksEl.innerHTML = '<div class="notice">' + s.diskError + '</div>'; }
+    (s.disks || []).forEach(d => {
+      if (!d.totalBytes) return;
+      const used = d.totalBytes - d.freeBytes;
+      const pct = Math.round((used / d.totalBytes) * 100);
+      const wrap = document.createElement("div");
+      wrap.innerHTML = '<div class="stat"><span>Disque ' + d.drive + '</span><span>' + fmtBytes(used) + ' / ' + fmtBytes(d.totalBytes) + ' (' + pct + '%)</span></div><div class="bar"><div class="bar-fill" style="width:' + pct + '%"></div></div>';
+      disksEl.appendChild(wrap);
+    });
+  } catch (err) { msg($("#statusMsg"), err.message, true); }
+}
+$("#refreshStatus").onclick = loadStatus;
+
+if (password) checkPassword();
+</script>
+</body>
+</html>
